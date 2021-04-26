@@ -1,0 +1,427 @@
+---
+title: "Dia_40_25abril"
+author: "Daniel Felipe Villa Rengifo"
+date: "25/4/2021"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+* ___Protocolo:___
+  
+  1. Lenguaje utilizado: R
+  
+  2. Tema: Tipos de datos en R.
+  
+  3. Fuentes utilizadas:
+      - [tutorialspoint](https://www.tutorialspoint.com/r/r_data_types.htm)
+      - [RPubs: Tipos de datos](https://rpubs.com/Rortizdu/140015)
+  
+  4. Link del repositorio en GitHub:
+     [Dia_40_25abril](https://github.com/dvillaunal/Dia_40_25abril)
+     _(recomendación: abrir en una ventana nueva)_
+
+
+# Tipos de Datos:
+
+En R los datos pueden ser de diferentes tipos. Cada tipo tiene características particulares que lo distinguen de los demás.
+
+## Datos mas comunes:
+
+__Todo en R es un objeto.__
+
+R tiene __4__ tipos de datos básicos.
+
+
+   Tipo   | Ejemplo |   Definición
+----------|---------|-------------------
+ character| "Texto" | Cadena de Texto
+  numeric |  3.141  | Real o Decimal
+  integer |  3000   |     Entero
+  logical |  TRUE   |     Lógico
+  
+* __Nota:__ Además de estos tipos esta:
+NA (Perdido) & NULL (Vacio).
+
+### Character (Cadena de texto):
+
+El tipo character representa texto y es fácil reconocerlo porque un dato siempre esta rodeado de comillas, simples o dobles. De manera convencional, nos referimos a este tipo de datos como cadenas de texto, es decir, secuencias de caracteres.
+
+```{r}
+# Definir una varible con "<-" en este caso, una cadena de texto:
+ch <- "Hola Soy una cadena de Texto"
+# Imprimimos nuestra varible:
+print(ch)
+```
+
+> Pildora: `typeof()` = ¿cuál es el tipo de datos del objeto?
+
+Este es el tipo de datos más flexible de R, pues una cadena de texto puede contener letras, números, espacios, signos de puntuación y símbolos especiales.
+
+```{r}
+# Imprimimos el tipo de datos de la varible:
+print(typeof(ch))
+# Definimos una cadena de texto con simbolos y numeros:
+cadena <- "WXYZ!§ $ %&/() =?*'123413<> # | ; ²³ ~ @"
+print(cadena)
+print(typeof(cadena))
+```
+
+
+### Integer & Numeric (Entero y Decimal):
+
+Como su nombre lo indica, los datos enteros representan números enteros, sin una parte decimal o fraccionaria, que pueden ser usados en operaciones matemáticas.
+
+Por su parte, como su nombre lo indica, los datos numéricos representan números, la diferencia de estos con los datos enteros es que tiene una parte decimal o fraccionaria.
+
+* __Nota:__
+    
+    Los datos numéricos también son llamados `double` o `float` (flotantes). Este     nombre se debe a que, en realidad, son números de doble precisión, pues          tienen     una parte entera y una fraccionaria decimal, y son llamados float     debido a que     se usa un punto flotante para su representación                computacional.
+
+
+```{r}
+# Con el "<-" definimos varibles:
+entero <- 2
+# Imprimimos la varible y su tipo
+print(entero)
+print(typeof(entero))
+
+# Un vector de enteros:
+"Un vector es la estructura de datos más común y básica en R y es prácticamente el caballo de batalla de R"
+
+"Con el : definimos un vetor de numeros enteros desde n hasta m (si n < m)=> n:m"
+y <- 1:10
+# Imprimimos la varible y su tipo
+print(y)
+"Si solo ponemos la varible o el metodo lo imprimira, es como un print invisible"
+typeof(y)
+```
+
+
+```{r}
+# Denifimos una variable que contenga un numero real:
+r <- 12.31
+# Imprimimos la varible y su tipo
+print(r)
+typeof(r) # nos lo define double por lo anteiormente dicho
+```
+```{r}
+
+# Definamos una lista pero esta vez con valores reales, de 1 a 10, con pasos de 0.1
+
+"Con el seq, creamos una sequencia, de (from=) -> a (to=) con pasos de (by=) 0.1"
+s <- seq(from= 1, to= 10, by = 0.1)
+s
+
+# Imprimimamos el tipo de s:
+## Como vemos es double, un numero con parte entera y parte decimal
+
+typeof(s)
+```
+
+
+### Logical (Lógico):
+
+Los datos de tipo lógico sólo tienen dos valores posibles: verdadero (TRUE) y falso (FALSE). Representan si una condición o estado se cumple, es verdadero, o no, es falso.
+
+Este tipo de dato es, generalmente, el resultado de operaciones relacionales y lógicas, son esenciales para trabajar con álgebra Booleana.
+
+
+* __Nota:__ Como este tipo de dato sólo admite dos valores específicos, es el más restrictivo de R.
+
+> Pildora: `class()` ¿Qué tipo de objeto es?
+
+```{r}
+
+#en R se define true o false todo en mayuscula, diferente en python con la primera mayuscula
+
+t <- TRUE
+
+# Evaluemos con la función class
+## Vemos que este dato es logico
+
+class(t)
+
+# Podemos definir un vector logico con la siguiente función Built-it:
+logical(9)
+
+# Otra forma en con `c()`:
+l <- c(TRUE, TRUE, TRUE, TRUE, TRUE)
+l
+```
+
+### Complejos (Complex):
+en R también contamos con datos complejos numéricos complejos (con una parte real y una imaginaria)
+
+> Numero Complejo parte real o entera (`numeric or integer`) `+` parte imaginario (`#i`)
+
+* La `i`  define la parte imaginaria:
+     
+     $i = \sqrt{-1}$
+
+
+```{r}
+# Definimos la variable compleja:
+complejo <- 1+4i
+
+#imprimimos para ver su clase:
+class(complejo)
+complejo # Imprimimos la varible
+```
+
+-------------------------------------------------------------------------
+
+## Estructura de Datos:
+
+Las estructuras de datos son objetos que contienen datos. Cuando trabajamos con R, lo que estamos haciendo es manipular estas estructuras.
+
+Las estructuras tienen diferentes características. Entre ellas, las que distinguen a una estructura de otra son su número de dimensiones y si son homogeneas o hereterogeneas.
+
+
+   Tipo   | Ejemplo     |          Definión
+----------|-------------|--------------------------------
+  Vectors |  c(.....)   |          Vectores
+  matrix  |  matrix()   |          Matrices
+   list   |   list()    |           listas
+  Arrays  |  array()    |   Arrays (Algo como matrices)
+  Factors |  factor()   |           Factor
+Data Frame| data.frame()|  Data frames (Marcos de datos)
+
+
+### Vector (Atomic or lists):
+Un vector es la estructura de datos más común y básica en R y es prácticamente el caballo de batalla de R. Técnicamente, los vectores pueden ser de dos tipos:
+
+- vectores atómicos.
+- listas.
+
+aunque el término "vector" se refiere más comúnmente a los tipos atómicos y no a las listas.
+
+
+__Todos los vectores tienen tres propiedades:__
+
++ Tipo.:
+  
+  Un vector tiene el mismo tipo que los datos que contiene. Si tenemos un      vector que contiene datos de tipo numérico, el vector será también de tipo   numérico. Los vectores son atómicos, pues sólo pueden contener datos de un   sólo tipo, no es posible mezclar datos de tipos diferentes dentro de ellos.
+
++ Largo:
+  
+  Es el número de elementos que contiene un vector. El largo es la      única   dimensión que tiene esta estructura de datos.
+
++ Atributos:
+  Los vectores pueden tener metadatos de muchos tipos, los cuales   describen   características de los datos que contienen.
+
++ __Nota:__
+   Cuando una estructura únicamente puede contener datos de un sólo tipo,       como es el caso de los vectores, decimos que es homogénea, pero no           implica que necesariamente sea atómica.
+
+
+Como los vectores son la estructura de datos más sencilla de R, datos simples como el número 9, son en realidad vectores. En este caso, un vector de tipo numérico y largo igual a 1.
+
+```{r}
+# Definimos una varible x que contenga el vector de longitud 1 con el numero 10
+x <- 10
+
+# Verifiquemos con la función is.vector() <= Regresa un termino logico coherente:
+is.vector(x)
+
+
+# Miremos la lungitud de la varible x, con la función length():
+length(x)
+
+```
+
+
+> Pildora: `length()` Longitud del objeto dentro del ()
+
+Estas funciones toman como argumento un dato, si este es del tipo que estamos verificando, nos devolverán TRUE y en caso contrario devolverán FALSE
+
+> `is.vector` - Devuelve TRUE en caso de que sea un vector.
+
+
+lo mismo ocurre con las cadenas de texto y los valores lógicos:
+```{r}
+cadena
+# Evaluamos la cadena de texto dada anteriomente:
+is.vector(cadena) # vemos como el character es un vecto
+
+
+# Lo mismo sucede con datos lógicos:
+l
+length(l) # observemos la longitud de l
+# Veirificquemos que si sea un vector:
+is.vector(l)
+## Hagamos lo mismo con t (longitud = 1):
+t
+length(t)
+is.vector(t)
+```
+
+
+#### Crear vectores (Forma alternativa):
+
+Creamos vectores usando la función `c()` (combinar).
+
+Llamamos esta función y le damos como argumento los elementos que deseamos combinar en un vector, separados por comas.
+
+```{r}
+#podemos definir el vector y de la siguientes maneras:
+"Nota: Con el primer metodo coge los valores extremos dados"
+y <- 1:10
+y
+## Que es lo mismo a:
+y <- c(1,2,3,4,5,6,7,8,9,10)
+y
+
+
+## Podemos definir vecotres con cadenas de texto:
+a <- c("Ana", "Come", "Banana")
+a
+```
+
+Podemos definir lo mismo para un valor lógico o bool:
+
+```{r}
+# Antes:
+logical(4) # vector de longitud 4, con datos lógicos
+
+c(FALSE, FALSE, FALSE, FALSE) # El mismo vector lógico definido de otra manera.
+```
+
+### Matrices y Arrays:
+
+Las matrices y arrays pueden ser descritas como vectores multidimensionales. Al igual que un vector, únicamente pueden contener datos de un sólo tipo, pero además de largo, tienen más dimensiones.
+
+En un sentido estricto, las matrices son una caso especial de un array, que se distingue por tener específicamente dos dimensiones, un “largo”" y un “alto”. Las matrices son, por lo tanto, una estructura con forma rectangular, con renglones y columnas.
+
++ __Nota:__
+   Creamos matrices en R con la función `matrix()`. La función    `matrix()` acepta dos argumentos, `nrow` y `ncol`. Con ellos    especificamos el número de renglones y columnas                respectivamente que tendrá     nuestra matriz.
+   
+
+```{r}
+# matriz numerica, sin dar formato de renglones ni columnas:
+matrix(1:10)
+
+# Ahora con un poco mas de orden:
+matrix(1:10, nrow = 5, ncol = 5)
+```
+
+
++ __NOTA:__
+   
+  1. Si el número de elementos es mayor al número de celdas, se      acomodarán todos los datos que sean posibles y los demás       se   omitirán.
+  
+  2. Si, por el contrario, el número de celdas es mayor que el      número de elementos, estos se reciclaran. En cuanto los        elementos sean insuficientes para acomodarse en las celdas      y se empezaran a usar los elementos a partir del primero       de ellos
+
+
+Otro procedimiento para crear matrices es la unión vectores con las siguientes funciones:
+
++ `cbind()` para unir vectores, usando cada uno como una         columna.
+
++ `rbind()` para unir vectores, usando cada uno como un          renglón.
+
+
+```{r}
+# Creamos dos vecotres, (n:m) en secuencia desde n hata m:
+v1 <- 1:5
+v2 <- 6:10
+
+# vamos a crear una matrix apartir de vecotres columna:
+cbind(v1,v2)
+
+# AHora dos vectores filas:
+rbind(v1,v2)
+```
+
+
+### Data Frame:
+
+Los `data frames`` son estructuras de datos de dos dimensiones (rectangulares) que pueden contener datos de diferentes tipos, por lo tanto, son heterogéneas.
+
+Podemos entender a los `data frames` como una versión más flexible de una matriz. Mientras que en una matriz todas las celdas deben contener datos del mismo tipo, los renglones de un data frame admiten datos de distintos tipos, pero sus columnas conservan la restricción de contener datos de un sólo tipo.
+
+> Pildora: se crean dataframe, con la función data.frame()
+
+
+```{r}
+# Creamos un vector con caracteres cadena dde texto:
+  
+  nom = c("Ivon", "Sara", "Pipe")
+  
+# este vecotr escoge el lenguaje de programación usa?:
+  
+  lenguaje = c("R", "Python", "Julia")
+  
+# Definimosla edad de los nombres de abajo:
+  
+edad = c(22, 25, 45)
+  
+"Ahora tenemos un data frame con el nombre, la edad y el lenguaje utlizado"
+
+dataf = data.frame(nom, lenguaje, edad) #tipo de tablas, con matrices
+  
+print(dataf)
+```
+
+### Factor:
+
+Los factores son los R-objetos que se crean utilizando un vector. Almacena el vector junto con los distintos valores de los elementos del vector como etiquetas. Las etiquetas son siempre de carácter, independientemente de si es numérico o de carácter o booleano, etc. en el vector de entrada. Son útiles en el modelado estadístico.
+
+Los factores se crean utilizando la función `factor()`. Las funciones `nlevels` dan el número de niveles.
+
+
+```{r}
+# Creamos un vector que contendra los generos de una población:
+gener <- c("Male", "Female", "Male", "Male", "Female", "Male", "Male", "Male", "Male", "Female", "Male", "Female", "Male", "Male", "Female", "Female")
+
+## Convertimos este vector en un factor:
+
+factor_gener <- factor(gener)
+
+gener
+
+# VS
+
+nlevels(factor_gener)
+```
+
+
+### Listas:
+
+Las listas, al igual que los vectores, son estructuras de datos unidimensionales, sólo tienen largo, pero a diferencia de los vectores cada uno de sus elementos puede ser de diferente tipo o incluso de diferente clase, por lo que son estructuras heterogéneas.
+
+
+Para crear una lista usamos la función `list()`, que nos pedirá los elementos que deseamos incluir en nuestra lista. Para esta estructura, no importan las dimensiones o largo de los elementos que queremos.
+
+```{r}
+# Creamos una lista apartir de valores integers:
+lst <- list(5,13,134)
+
+
+# Creamos una lista con cadenas de texto:
+lst <- list("ROjo", "Azul", "White")
+
+# Pero podemos definir, una lista con diferentes valores:
+lst <- list(12,"Hola", FALSE, 12.1313)
+```
+
+> Pildora: `str()` Proporciona una visualización compacta de la estructura interna de una lista.
+
+
+```{r}
+# Creamos una lista con multiples valores:
+multiple <- list(1:10, matrix(5:15, ncol = 2, nrow = 2), TRUE,
+                 list(12,33.12, "Estoy anidado"))
+
+# Veamos nuestra lista:
+multiple
+
+# Veamos con la función str() que tipos de datos manejamos en la lista:
+str(multiple)
+```
+
+
+
+
