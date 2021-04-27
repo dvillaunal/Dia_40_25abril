@@ -2,7 +2,7 @@
 title: "Dia_40_25abril"
 author: "Daniel Felipe Villa Rengifo"
 date: "25/4/2021"
-output: 
+output:
   html_document: 
     toc: yes
 ---
